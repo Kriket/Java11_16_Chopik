@@ -19,6 +19,10 @@ public class AllFileService implements FileService {
     private int offset = 0;
     private Pattern p = Pattern.compile("<[^>]+>");
     private Matcher m = null;
+    private Pattern p1 = Pattern.compile(">[^<]+<");
+    private Matcher m1 = null;
+    boolean isContentNext = false;
+    private String content = "";
 
     @Override
     public Node getNextNode() throws ServiceException {
@@ -30,42 +34,41 @@ public class AllFileService implements FileService {
 
         if (m == null) {
             m = p.matcher(data);
+            m1 = p1.matcher(data);
         }
 
-        if (m.find(offset)) {
-
-            String temp = data.substring(m.start(), m.end());
-            String temp1 = data.substring(m.start()+1, m.end()-1);
-            String temp2 = data.substring(m.start()+2, m.end()-2);
-            char c = data.charAt(m.start() + 1);
-            char c1 = data.charAt(m.end() - 2);
-
-            // сравнение с символом доделать
+        if (isContentNext) {
+            result.setContent(content);
+            result.setNodeType(NodeType.TAG_CONTENT);
+            isContentNext = false;
+        } else if (m.find(offset)) {
 
             if (data.charAt((m.start() + 1)) == '?' && data.charAt(m.end() - 2) == '?') {
                 result.setContent(data.substring(m.start() + 2, m.end() - 2));
                 result.setNodeType(NodeType.TAG_WITHOUT_BODY);
-                offset = m.end();
-                return result;
-            }
-
-            if (data.charAt((m.start() + 1)) == '/') {
+                offset = m.end() - 1;
+            } else if (data.charAt((m.start() + 1)) == '/') {
                 result.setContent(data.substring(m.start() + 2, m.end() - 1));
                 result.setNodeType(NodeType.CLOSING_TAG);
-                offset = m.end();
-                return result;
-            }
-
-            if (data.charAt((m.end() - 2)) == '/') {
+                offset = m.end() - 1;
+            } else if (data.charAt((m.end() - 2)) == '/') {
                 result.setContent(data.substring(m.start() + 1, m.end() - 2));
                 result.setNodeType(NodeType.TAG_WITHOUT_BODY);
-                offset = m.end();
-                return result;
-            }
+                offset = m.end() - 1;
+            } else {
+                result.setContent(data.substring(m.start() + 1, m.end() - 1));
+                result.setNodeType(NodeType.OPENING_TAG);
+                offset = m.end() - 1;
 
-            result.setContent(data.substring(m.start() + 1, m.end() - 1));
-            result.setNodeType(NodeType.OPENING_TAG);
-            offset = m.end();
+                if (m1.find(offset) && m.find(offset)) {
+
+                    content = data.substring(m1.start() + 1, m1.end() - 1).trim();
+                    if ((m1.start() < m.start()) && (!content.isEmpty())) {
+                        isContentNext = true;
+                        offset = m1.end() - 1;
+                    }
+                }
+            }
 
         } else {
             result = null;
