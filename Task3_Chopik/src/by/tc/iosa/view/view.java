@@ -18,6 +18,7 @@ public class view {
         AllFileService allFileService = serviceFactory.getAllFileService();
 
         try {
+            // The default file is file.xml
             allFileService.setFilePath("breakfastMenu.xml");
             allFileService.getData();
             while ((node = allFileService.getNextNode()) != null) {

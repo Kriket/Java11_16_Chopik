@@ -37,11 +37,13 @@ public class AllFileService implements FileService {
             m1 = p1.matcher(data);
         }
 
+        // when the next node is content
         if (isContentNext) {
             result.setContent(content);
             result.setNodeType(NodeType.TAG_CONTENT);
             isContentNext = false;
         } else if (m.find(offset)) {
+            // when the next node is tag
 
             if (data.charAt((m.start() + 1)) == '?' && data.charAt(m.end() - 2) == '?') {
                 result.setContent(data.substring(m.start() + 2, m.end() - 2));
@@ -56,10 +58,12 @@ public class AllFileService implements FileService {
                 result.setNodeType(NodeType.TAG_WITHOUT_BODY);
                 offset = m.end() - 1;
             } else {
+
                 result.setContent(data.substring(m.start() + 1, m.end() - 1));
                 result.setNodeType(NodeType.OPENING_TAG);
                 offset = m.end() - 1;
 
+                // Check is the next node is content
                 if (m1.find(offset) && m.find(offset)) {
 
                     content = data.substring(m1.start() + 1, m1.end() - 1).trim();
@@ -91,7 +95,6 @@ public class AllFileService implements FileService {
 
     @Override
     public void getData() throws ServiceException {
-
         try {
             DAOFactory daoFactory = DAOFactory.getInstance();
             AllFileDAO allFileDAO = daoFactory.getAllFileDAO();
@@ -99,6 +102,5 @@ public class AllFileService implements FileService {
         } catch (DAOException e) {
             throw new ServiceException(e);
         }
-
     }
 }
