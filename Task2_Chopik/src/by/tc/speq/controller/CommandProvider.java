@@ -13,7 +13,7 @@ import java.util.Map;
 final class CommandProvider {
     private final Map<CommandName, Command> repository = new HashMap<>();
 
-    public CommandProvider() {
+    public CommandProvider() {// friendly- класс и public конструктор - зачем такое?
         repository.put(CommandName.SIGN_IN, new SignIn());
         repository.put(CommandName.REGISTRATION, new Register());
         repository.put(CommandName.RENT, new Rent());
@@ -32,7 +32,7 @@ final class CommandProvider {
             command = repository.get(commandName);
         } catch (IllegalArgumentException | NullPointerException e) {
             // Здесь запись в лог
-
+            // ну и где запись в лог?
             command = repository.get(CommandName.WRONG_REQUEST);
         }
 
