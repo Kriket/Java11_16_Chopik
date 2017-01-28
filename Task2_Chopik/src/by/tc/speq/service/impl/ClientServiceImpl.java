@@ -53,7 +53,8 @@ public class ClientServiceImpl implements ClientService {
 
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
             throw new ServiceException("Incorrect password");
-        }
+        }// а что, при регистрации валидируются только логин-пароль
+        // и никакой другой информации?
 
         // реализуем функционал регистрации пользователя в системе
         try {
