@@ -40,7 +40,9 @@ public class IsConsist implements Command {
 
         m.find();
         price = Integer.parseInt(request.substring(m.start(), m.end()));
-
+    // много 'лишнего кода', который не несет никакой смысловой нагрузки в этом методе, а только затрудняет чтение
+        // над котом надо работать
+        // а не писать все в одном методе
         SportEquipment sportEquipment = new SportEquipment(title, category, price);
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();

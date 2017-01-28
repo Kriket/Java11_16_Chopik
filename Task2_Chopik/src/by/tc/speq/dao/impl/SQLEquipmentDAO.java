@@ -21,8 +21,8 @@ public class SQLEquipmentDAO implements EquipmentDAO {
         Map<SportEquipment, Integer> result = new HashMap<>();
 
         try{
-            Class.forName("org.gjt.mm.mysql.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/Shop", "root", "root");
+            Class.forName("org.gjt.mm.mysql.Driver");// зачем каждый метод заново грузит драйвер??
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/Shop", "root", "root");// и опять, что мы делаем с константными строками в коде?
 
             st = con.createStatement();
             rs = st.executeQuery("Select * from shop.shop where all_quantity != rent_quantity");
@@ -49,7 +49,7 @@ public class SQLEquipmentDAO implements EquipmentDAO {
                     rs.close();
                 }
             } catch (SQLException e) {
-                throw new DAOException(e);
+                throw new DAOException(e);// finally не выбрасывает исключений
             }
             try {
                 if (st != null) {

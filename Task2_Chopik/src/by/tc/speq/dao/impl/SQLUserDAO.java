@@ -80,7 +80,8 @@ public class SQLUserDAO implements UserDAO {
 
             st = con.createStatement();
             i = st.executeUpdate("insert into shop.users(login, password) values ('" + user.getLogin() +"', '" + user.getPassword() + "'); ");
-
+            // я так понимаю, что PreparedStatement тобой явно не изучался
+            
         } catch (ClassNotFoundException e) {
             throw new DAOException(e);
         } catch (SQLException e) {

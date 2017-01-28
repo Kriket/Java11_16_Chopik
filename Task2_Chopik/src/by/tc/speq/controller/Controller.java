@@ -15,7 +15,7 @@ public final class Controller {
         String commandName;
         Command executionCommand;
 
-        Pattern p = Pattern.compile("(\\S)+");
+        Pattern p = Pattern.compile("(\\S)+");// зачем при каждом вызове метода создавать одни и те же объекты?
         Matcher m = p.matcher(request);
         m.find();
 
