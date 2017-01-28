@@ -17,7 +17,7 @@ public class GetRentInfo implements Command {
 
         StringBuilder response = new StringBuilder();
 
-        response.append(System.getProperty("line.separator"));
+        response.append(System.getProperty("line.separator"));// что мы делаем с константными строками в коде?
         response.append("Info about rented goods:");
         response.append(System.getProperty("line.separator"));
 
