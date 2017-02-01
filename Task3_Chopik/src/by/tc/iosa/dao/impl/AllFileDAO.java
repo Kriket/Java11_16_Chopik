@@ -31,6 +31,7 @@ public class AllFileDAO implements AllDataDAO {
     public String getAllData() throws DAOException {
         StringBuilder stringBuilder = new StringBuilder();
         BufferedReader bufferedReader = null;
+
         try {
             bufferedReader = new BufferedReader(new FileReader(filePath));
             String line;
@@ -38,7 +39,7 @@ public class AllFileDAO implements AllDataDAO {
                 stringBuilder.append(line);
             }
         } catch (FileNotFoundException e) {
-            throw new DAOException("IncorrectFilePathException", e);
+            throw new DAOException(e);
         } catch (IOException e) {
             throw new DAOException(e);
         } finally {

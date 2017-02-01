@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema
+    attributeFormDefault="unqualified" elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- определение простых элементов -->
+  
+  <xs:element name="welcome-file" type="xs:string"/>
+  <xs:element name="filter-name" type="xs:string"/>
+  <xs:element name="filter-class" type="xs:string"/>
+  <xs:element name="param-name" type="xs:string"/>
+  <xs:element name="param-value" type="xs:string"/>
+  <xs:element name="url-pattern" type="xs:string"/>
+  <xs:element name="dispatcher" type="xs:string"/>
+  <xs:element name="listener-class" type="xs:string"/>
+  <xs:element name="servlet-name" type="xs:string"/>
+  <xs:element name="servlet-class" type="xs:string"/>
+  <xs:element name="error-code" type="xs:unsignedInt"/>
+  <xs:element name="exception-type" type="xs:string"/>
+  <xs:element name="location" type="xs:string"/>
+
+  <!-- определение атрибутов -->
+  
+  <xs:attribute name="id" type="xs:string"/>
+  <xs:attribute name="version" type="xs:string"/>
+
+  <!-- определение составных элементов -->
+
+  <xs:element name="init-param">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="param-name"/>
+        <xs:element ref="param-value"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="welcome-file-list">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="welcome-file" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="filter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="filter-name"/>
+        <xs:element ref="filter-class"/>
+
+        <xs:element ref="init-param" minOccurs="0" maxOccurs="unbounded"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="filter-mapping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="filter-name"/>
+        <xs:element ref="url-pattern"/>
+        <xs:element ref="dispatcher"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="listener">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="listener-class"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="servlet">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="servlet-name"/>
+        <xs:element ref="servlet-class"/>
+
+        <xs:element ref="init-param" minOccurs="0" maxOccurs="unbounded"/>
+
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="servlet-mapping">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="servlet-name"/>
+        <xs:element ref="url-pattern"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="error-page">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="error-code" minOccurs="0"/>
+        <xs:element ref="exception-type" minOccurs="0" />
+        <xs:element ref="location"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+
+  <xs:element name="web-app">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="display-name" type="xs:string"/>
+
+        <xs:element ref="welcome-file-list"/>
+
+        <xs:element ref="filter"/>
+
+        <xs:element ref="filter-mapping"/>
+
+        <xs:element ref="listener"/>
+
+        <xs:element ref="servlet"/>
+
+        <xs:element ref="servlet-mapping"/>
+
+        <xs:element ref="error-page"/>
+  
+      </xs:choice>
+      <xs:attribute ref="id" use="required"/>
+      <xs:attribute ref="version" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

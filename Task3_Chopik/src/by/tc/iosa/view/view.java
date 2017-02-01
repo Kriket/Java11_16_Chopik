@@ -20,7 +20,7 @@ public class view {
         try {
             // The default file is file.xml
             allFileService.setFilePath("breakfastMenu.xml");
-            allFileService.getData();
+            allFileService.initData();
             while ((node = allFileService.getNextNode()) != null) {
                 System.out.print(node.getContent() + " - ");
                 switch (node.getNodeType()) {

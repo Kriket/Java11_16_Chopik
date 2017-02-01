@@ -8,5 +8,5 @@ import by.tc.iosa.service.exception.ServiceException;
  */
 public interface FileService {
     Node getNextNode() throws ServiceException;
-    void getData() throws ServiceException;
+    void initData() throws ServiceException;
 }
