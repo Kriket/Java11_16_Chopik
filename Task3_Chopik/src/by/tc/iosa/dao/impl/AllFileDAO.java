@@ -2,6 +2,7 @@ package by.tc.iosa.dao.impl;
 
 import by.tc.iosa.dao.AllDataDAO;
 import by.tc.iosa.dao.exception.DAOException;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,6 +13,8 @@ import java.io.IOException;
  * Created by User on 20.01.2017.
  */
 public class AllFileDAO implements AllDataDAO {
+
+    private static final Logger loger = Logger.getLogger(AllFileDAO.class);
 
     private static String filePath;
 
@@ -47,7 +50,7 @@ public class AllFileDAO implements AllDataDAO {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
-                    throw new DAOException("ClothingBufferedReaderException", e);
+                    loger.error("Error while closing stream", e);
                 }
             }
         }

@@ -4,11 +4,14 @@ import by.tc.iosa.bean.Node;
 import by.tc.iosa.service.exception.ServiceException;
 import by.tc.iosa.service.factory.ServiceFactory;
 import by.tc.iosa.service.impl.AllFileService;
+import org.apache.log4j.Logger;
 
 /**
  * Created by User on 19.01.2017.
  */
 public class view {
+
+    private final static Logger logger = Logger.getLogger(view.class);
 
     public static void main(String[] args) {
 
@@ -19,7 +22,7 @@ public class view {
 
         try {
             // The default file is file.xml
-            allFileService.setFilePath("breakfastMenu.xml");
+            allFileService.setFilePath("abreakfastMenu.xml");
             allFileService.initData();
             while ((node = allFileService.getNextNode()) != null) {
                 System.out.print(node.getContent() + " - ");
@@ -43,7 +46,8 @@ public class view {
                 }
             }
         } catch (ServiceException e) {
-            e.printStackTrace();
+            System.out.println("Sorry, this functionality is not available");
+            logger.fatal("Application crashed", e);
         }
     }
 }
