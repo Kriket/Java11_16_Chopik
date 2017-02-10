@@ -1,0 +1,71 @@
+DELIMITER $$
+CREATE PROCEDURE fill_book()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i < 51 DO
+    INSERT INTO book (id,brief,publish_year,author) VALUES (i,
+															(select lpad(conv(floor(rand()*pow(36,5)), 10, 36), 5, 0)),
+                                                            1950+(FLOOR( 1 + RAND( ) *60 )),
+                                                            (select lpad(conv(floor(rand()*pow(36,10)), 10, 36), 10, 0))
+															);
+    SET i = i + 1;
+  END WHILE;
+END$$
+DELIMITER ;
+
+call fill_book();
+
+
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Владимир', '1971-1-1','Vladimir@gmail.com',1);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Борис', '1975-1-1','Vladimir@gmail.com',2);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Вальдемар', '1979-1-1','Vladimir@gmail.com',3);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Виктор', '1999-1-1','Vladimir@gmail.com',4);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Геннадий', '1973-1-1','Vladimir@gmail.com',5);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Джонатан', '1989-1-1','Vladimir@gmail.com',6);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Дмитрий', '1979-1-1','Vladimir@gmail.com',7);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Емельян', '1969-1-1','Vladimir@gmail.com',8);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Кирилл', '1979-1-1','Vladimir@gmail.com',9);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Константин', '1999-1-1','Vladimir@gmail.com',10);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Леонард', '1978-1-1','Vladimir@gmail.com',11);
+insert into employee (name, DATE_OF_BIRTH, EMAIL,ID) values('Людвиг', '1992-1-1','Vladimir@gmail.com',12);
+
+DELIMITER $$
+CREATE PROCEDURE fill_employee_book()
+BEGIN
+  DECLARE i INT DEFAULT 1;
+  WHILE i < 150 DO
+    INSERT INTO employee_book (book_id,employee_id) VALUES ((SELECT FLOOR((RAND() * (1-50+1))+50)),
+															  (SELECT FLOOR((RAND() * (1-12+1))+12)));
+                                                              
+                                                              insert into employee_book (employee_id) values(5);
+    SET i = i + 1;
+  END WHILE;
+END$$
+DELIMITER ;
+
+call fill_employee_book();
+
+delete from employee_book where EMPLOYEE_ID = 5;
+delete from employee_book where EMPLOYEE_ID = 10;
+
+   insert into employee_book (employee_id) values(5);
+   insert into employee_book (book_id,employee_id) values(3,10);
+   
+    -- first
+ select employee.name `name`,
+		count(book_id) `number_of_books`
+ from employee inner join employee_book
+	on employee.ID = employee_book.EMPLOYEE_ID  
+ group by employee.NAME
+ having count(book_id) > 1
+ order by BOOK_ID asc;
+ 
+ -- second
+  select employee.name `name`,
+		employee.DATE_OF_BIRTH `date`,
+		count(book_id) `number_of_books`
+ from employee inner join employee_book
+	on employee.ID = employee_book.EMPLOYEE_ID  
+ group by employee.NAME
+ having count(book_id)  <= 2
+ order by employee.DATE_OF_BIRTH,count(book_id)  desc;
