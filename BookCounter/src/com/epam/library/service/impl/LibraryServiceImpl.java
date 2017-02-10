@@ -14,15 +14,22 @@ import java.util.Map;
  * Created by User on 10.02.2017.
  */
 public class LibraryServiceImpl implements LibraryService {
+    public static final String INCORRECT_OLDNAME = "Incorrect oldName";
+    public static final String INCORRECT_NEWNAME = "Incorrect newName";
+    public static final String RENAIMED_ERROR = "Exception while renaming book";
+    public static final String GET_MORE_ONE_ERROR = "Exception while get employees who read more one book";
+    public static final String GET_TWO_OR_MORE_ERROR = "Exception while get employees who read two book or more";
+    public static final String DELETING_ERROR = "Exception while deleting book";
+    public static final String ADDING_ERROR = "Exception while add new book";
     @Override
     public void renameBook(String oldName, String newName) throws ServiceException {
 
         if (oldName == null || oldName.isEmpty()) {
-            throw new ServiceException("Incorrect oldName");
+            throw new ServiceException(INCORRECT_OLDNAME);
         }
 
         if (newName == null || newName.isEmpty()) {
-            throw new ServiceException("Incorrect newName");
+            throw new ServiceException(INCORRECT_NEWNAME);
         }
 
         DAOFactory daoFactory = DAOFactory.getInstance();
@@ -30,7 +37,7 @@ public class LibraryServiceImpl implements LibraryService {
         try {
             bookDAO.renameBook(oldName, newName);
         } catch (DAOException e) {
-            throw new ServiceException("Exception while renaming book", e);
+            throw new ServiceException(RENAIMED_ERROR, e);
         }
 
     }
@@ -42,7 +49,7 @@ public class LibraryServiceImpl implements LibraryService {
         try {
             return bookDAO.getEmployeesReadedMoreOneBook();
         } catch (DAOException e) {
-            throw new ServiceException("Exception while get employees readed more one book", e);
+            throw new ServiceException(GET_MORE_ONE_ERROR, e);
         }
     }
 
@@ -53,7 +60,7 @@ public class LibraryServiceImpl implements LibraryService {
         try {
             return bookDAO.getEmployeesReadedTwoBookOrMore();
         } catch (DAOException e) {
-            throw new ServiceException("Exception while get employees readed two book or more", e);
+            throw new ServiceException(GET_TWO_OR_MORE_ERROR, e);
         }
     }
 
@@ -64,7 +71,7 @@ public class LibraryServiceImpl implements LibraryService {
         try {
             bookDAO.deleteBook(id);
         } catch (DAOException e) {
-            throw new ServiceException("Exception while deleting book", e);
+            throw new ServiceException(DELETING_ERROR, e);
         }
     }
 
@@ -75,7 +82,7 @@ public class LibraryServiceImpl implements LibraryService {
         try {
             bookDAO.addBook(book);
         } catch (DAOException e) {
-            throw new ServiceException("Exception while add new book", e);
+            throw new ServiceException(ADDING_ERROR, e);
         }
     }
 }

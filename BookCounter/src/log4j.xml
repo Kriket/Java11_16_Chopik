@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="bulk" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="logs/bulk.log"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-16.16t][%30c{-3}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="dao" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="logs/dao.log"/>
+        <param name="MaxFileSize" value="5MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-16.16t][%30c{-4}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="controller" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="logs/controller.log"/>
+        <param name="MaxFileSize" value="5MB"/>
+        <param name="MaxBackupIndex" value="5"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-16.16t][%30c{-4}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <logger name="com.epam.library.dao" additivity="false">
+        <level value="ERROR"/>
+        <appender-ref ref="dao"/>
+    </logger>
+
+    <logger name="com.epam.library.controller">
+        <level value="INFO"/>
+        <appender-ref ref="controller"/>
+    </logger>
+
+    <root>
+        <priority value="WARN"/>
+        <appender-ref ref="bulk"/>
+    </root>
+
+</log4j:configuration>

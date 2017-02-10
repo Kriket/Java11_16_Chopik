@@ -3,6 +3,7 @@ package com.epam.library.controller;
 import com.epam.library.controller.command.Command;
 import com.epam.library.controller.command.CommandName;
 import com.epam.library.controller.command.impl.*;
+import org.apache.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import java.util.Map;
  * Created by User on 10.02.2017.
  */
 final class CommandProvider {
+    private static final Logger loger = Logger.getLogger(CommandProvider.class);
     private final Map<CommandName, Command> repository = new HashMap<>();
 
     CommandProvider() {
@@ -30,7 +32,7 @@ final class CommandProvider {
             commandName = CommandName.valueOf(name.toUpperCase());
             command = repository.get(commandName);
         } catch (IllegalArgumentException | NullPointerException e) {
-            // запись в лог
+            loger.error("Error while parsing command name", e);
             command = repository.get(CommandName.WRONG_REQUEST);
         }
 

@@ -4,6 +4,7 @@ import com.epam.library.dao.BookDAO;
 import com.epam.library.dao.exception.DAOException;
 import com.epam.library.domain.Book;
 import com.epam.library.domain.Employee;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import java.util.Map;
  * Created by User on 10.02.2017.
  */
 public class SQLBookDAO implements BookDAO {
+    private static final Logger loger = Logger.getLogger(SQLBookDAO.class);
     public static final String URL = "jdbc:mysql://127.0.0.1/cbrc_db";
     public static final String LOGIN = "root";
     public static final String PASSWORD = "root";
@@ -34,21 +36,21 @@ public class SQLBookDAO implements BookDAO {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing PreparedStatement", e);
             }
             try {
                 if (con != null) {
                     con.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Connection", e);
             }
 
         }
@@ -66,21 +68,21 @@ public class SQLBookDAO implements BookDAO {
             st = con.createStatement();
             st.executeUpdate("update book set brief = '" + newName + "' where brief = '" + oldName +"';");
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             try {
                 if (st != null) {
                     st.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Statement", e);
             }
             try {
                 if (con != null) {
                     con.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Connection", e);
             }
 
         }
@@ -98,21 +100,21 @@ public class SQLBookDAO implements BookDAO {
             st = con.createStatement();
             st.executeUpdate("delete from book where id = '" + id + "';");
         } catch (SQLException e) {
-            e.printStackTrace();
+           throw new DAOException(e);
         } finally {
             try {
                 if (st != null) {
                     st.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Statement", e);
             }
             try {
                 if (con != null) {
                     con.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Connection", e);
             }
 
         }
@@ -143,28 +145,28 @@ public class SQLBookDAO implements BookDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             try {
                 if (st != null) {
                     st.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Statement", e);
             }
             try {
                 if (rs != null) {
                     rs.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing ResultSet", e);
             }
             try {
                 if (con != null) {
                     con.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Connection", e);
             }
 
         }
@@ -197,28 +199,28 @@ public class SQLBookDAO implements BookDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         } finally {
             try {
                 if (st != null) {
                     st.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Statement", e);
             }
             try {
                 if (rs != null) {
                     rs.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing ResultSet", e);
             }
             try {
                 if (con != null) {
                     con.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                loger.error("Error while closing Connection", e);
             }
 
         }

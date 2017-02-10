@@ -105,8 +105,8 @@
       <file leaf-file-name="SQLEquipmentDAO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/by/tc/speq/dao/impl/SQLEquipmentDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42977527">
-              <caret line="118" column="34" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.14325842">
+              <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -1313,8 +1313,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/by/tc/speq/dao/impl/SQLEquipmentDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42977527">
-          <caret line="118" column="34" selection-start-line="118" selection-start-column="34" selection-end-line="118" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.14325842">
+          <caret line="106" column="17" selection-start-line="106" selection-start-column="17" selection-end-line="106" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

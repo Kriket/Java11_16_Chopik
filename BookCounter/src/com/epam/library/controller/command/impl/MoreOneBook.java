@@ -4,6 +4,7 @@ import com.epam.library.controller.command.Command;
 import com.epam.library.service.LibraryService;
 import com.epam.library.service.exception.ServiceException;
 import com.epam.library.service.factory.ServiceFactory;
+import org.apache.log4j.Logger;
 
 import java.util.Map;
 
@@ -13,9 +14,12 @@ import java.util.Map;
 public class MoreOneBook implements Command {
     public static final String LINE_SEPARATOR = "line.separator";
     public static final String DELIM = "  -  ";
+    public static final String ERROR_RESPONSE = "Sorry, but an error occurred";
+    private static final Logger loger = Logger.getLogger(MoreOneBook.class);
 
     @Override
     public String execute(String request) {
+        loger.info("START getting employees who read more one book");
         Map<String, Integer> map = null;
         StringBuilder stringBuilder = new StringBuilder();
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
@@ -23,8 +27,10 @@ public class MoreOneBook implements Command {
 
         try {
             map = libraryService.getEmployeesReadedMoreOneBook();
+            loger.info("END getting employees who read more one book");
         } catch (ServiceException e) {
-            e.printStackTrace();
+            loger.error("Error while getting employees who read more one book", e);
+            return ERROR_RESPONSE;
         }
 
         for (Map.Entry<String,Integer> pair : map.entrySet()) {
