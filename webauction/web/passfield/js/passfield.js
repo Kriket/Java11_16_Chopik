@@ -131,7 +131,7 @@
     // ========================== initialization ==========================
 
     /**
-     * Encapsulates PassField logic
+     * Encapsulates PassField service
      * @param {HTMLInputElement|string} el - input for which the field is initizlized (or ID of the input)
      * @param {object} [opts] - options to override defaults
      */
@@ -189,7 +189,7 @@
             assignDataObject(PassField.Config.dataAttr, _this);
         }
 
-        // ========================== logic ==========================
+        // ========================== service ==========================
 
         /**
          * Corrects user errors in options

@@ -1,9 +1,8 @@
 package by.epam.webauction.controller;
 
-import by.epam.webauction.logic.CommandException;
-import by.epam.webauction.logic.CommandHelper;
-import by.epam.webauction.logic.ICommand;
-import by.epam.webauction.logic.JspPageName;
+import by.epam.webauction.controller.command.CommandException;
+import by.epam.webauction.controller.command.CommandHelper;
+import by.epam.webauction.controller.command.ICommand;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,9 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by User on 17.02.2017.
- */
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -22,20 +18,22 @@ public class Controller extends HttpServlet {
         super();
     }
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String commandName = request.getParameter(RequestParameterName.COMMAND_NAME);
         ICommand command = CommandHelper.getInstance().getCommand(commandName);
+
         String page = null;
+
         try {
-            page = command.execute(request);
+            page = command.execute(request, response);
         } catch (CommandException e) {
-            // Переписать
-            page = JspPageName.ERROR_PAGE;
-        } catch (Exception e) {
             page = JspPageName.ERROR_PAGE;
         }
 

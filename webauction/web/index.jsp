@@ -14,7 +14,7 @@
       <nav>
         <a href="">Add lot</a>
         <a href="/registration">Sign up</a>
-        <a href="">Sing in</a>
+        <a href="/authorization">Sing in</a>
       </nav>
     </div>
   </header>

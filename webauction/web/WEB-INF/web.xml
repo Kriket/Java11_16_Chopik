@@ -8,6 +8,10 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     
+    <listener>
+        <listener-class>by.epam.webauction.controller.listener.InitAppListener</listener-class>
+    </listener>
+    
     <servlet>
         <servlet-name>Controller</servlet-name>
         <servlet-class>by.epam.webauction.controller.Controller</servlet-class>
@@ -49,13 +53,23 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Authorization</servlet-name>
+        <jsp-file>/WEB-INF/jsp/authorization.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Authorization</servlet-name>
+        <url-pattern>/authorization</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>AfterReg</servlet-name>
         <jsp-file>/WEB-INF/jsp/afterRegistration.jsp</jsp-file>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>AfterReg</servlet-name>
-        <url-pattern>/afterReg</url-pattern>
+        <url-pattern>/congratulation</url-pattern>
     </servlet-mapping>
 
 </web-app>

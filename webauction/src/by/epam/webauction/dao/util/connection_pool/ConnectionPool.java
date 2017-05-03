@@ -1,13 +1,17 @@
 package by.epam.webauction.dao.util.connection_pool;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
-public final class ConnectionPool {
+public final class ConnectionPool implements Closeable {
 
     private static final ConnectionPool instance = new ConnectionPool();
     private BlockingQueue<Connection> connectionQueue;
@@ -131,6 +135,23 @@ public final class ConnectionPool {
                 connection.commit();
             }
             ((PooledConnection)connection).reallyClose();
+        }
+    }
+
+    @Override
+    public void close() throws IOException {
+        List<Connection> connectionList = new ArrayList<>();
+        connectionList.addAll(connectionQueue);
+        connectionList.addAll(givenAwayConQueue);
+        
+        for (Connection connection : connectionList) {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    // log
+                }
+            }
         }
     }
 

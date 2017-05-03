@@ -1,18 +1,23 @@
 package by.epam.webauction.dao;
 
-import by.epam.webauction.exception.ProjectEcxeption;
+import by.epam.webauction.exception.ProjectException;
 
-/**
- * Created by User on 17.02.2017.
- */
-public class DAOException extends ProjectEcxeption {
+public class DAOException extends ProjectException {
     public static final long serialVersionUID = 1L;
 
-    public DAOException(String msg) {
-        super(msg);
+    public DAOException() {
+        super();
     }
 
-    public DAOException(String msg, Exception e) {
-        super(msg, e);
+    public DAOException(String message) {
+        super(message);
+    }
+
+    public DAOException(String message, Exception e) {
+        super(message, e);
+    }
+
+    public DAOException(Exception e) {
+        super(e);
     }
 }

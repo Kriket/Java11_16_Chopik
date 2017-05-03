@@ -1,15 +1,10 @@
-package by.epam.webauction.logic;
+package by.epam.webauction.controller.command;
 
-import by.epam.webauction.logic.impl.NoSuchCommand;
-import by.epam.webauction.logic.impl.SignIn;
-import by.epam.webauction.logic.impl.SignUp;
+import by.epam.webauction.controller.command.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by User on 17.02.2017.
- */
 public final class CommandHelper {
 
     private static final CommandHelper instance = new CommandHelper();
@@ -19,6 +14,8 @@ public final class CommandHelper {
     private CommandHelper() {
         commands.put(CommandName.SIGN_IN, new SignIn());
         commands.put(CommandName.SIGN_UP, new SignUp());
+        commands.put(CommandName.INIT_DATA, new InitData());
+        commands.put(CommandName.DESTROY_DATA, new DestroyData());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

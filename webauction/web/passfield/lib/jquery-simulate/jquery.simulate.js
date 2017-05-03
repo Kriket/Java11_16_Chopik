@@ -171,7 +171,7 @@ $.extend( $.simulate.prototype, {
 			$.extend( event, options );
 		}
 
-		// TODO: can we hook into core's logic?
+		// TODO: can we hook into core's service?
 		//if ( $.browser.msie || $.browser.opera ) {
         try {
 			// TODO: is charCode ever <0 ? Can we just use charCode || keyCode?

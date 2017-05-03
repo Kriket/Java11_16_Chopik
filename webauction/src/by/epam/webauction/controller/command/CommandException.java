@@ -1,11 +1,8 @@
-package by.epam.webauction.logic;
+package by.epam.webauction.controller.command;
 
-import by.epam.webauction.exception.ProjectEcxeption;
+import by.epam.webauction.exception.ProjectException;
 
-/**
- * Created by User on 17.02.2017.
- */
-public class CommandException extends ProjectEcxeption {
+public class CommandException extends ProjectException {
     public static final long serialVersionUID = 1L;
 
     public CommandException(String msg) {

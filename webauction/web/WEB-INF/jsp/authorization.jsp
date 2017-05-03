@@ -16,7 +16,9 @@
                 $(document).ready(function(){ 
                     var passField = new PassField.Field("password", {
                         pattern: "abcdEFGH1234",
-                        showWarn: false
+                        showGenerate: false,
+                        showWarn: false,
+    					showTip: false
                     });
                 });
     </script>
@@ -27,20 +29,20 @@
             <h1>Super AUCTION</h1>
             <nav>
                 <a href="">Add lot</a>
-                <a href="/registration">Sign up</a>
-                <a href="/authorization">Sing in</a>
+        		<a href="/registration">Sign up</a>
+        		<a href="/authorization">Sing in</a>
             </nav>
         </div>
     </header>
 
     <div class="register-container">
-        <form method="post" action = "controller" class="register" id="register" onsubmit="return validateForm()">
-            <input type="hidden" name="command" value="sign_up">
+        <form method="post" action = "controller" class="register" id="register">
+            <input type="hidden" name="command" value="sign_in">
 
-            <p>
-                <label for="nickname">Никнейм:</label>
+            <p id="email-p">
+                <label for="email">Email:</label>
                 <br>
-                <input type="text" name="nickname" id="nickname" title="Латинские буквы, цифры, '_', первый символ - буква. Не менее 5 символов." pattern="[A-z][A-z\d_]{4,}" required/>
+                <input type="text" id="email" name="email" title="Должен содержать символы: '@' и '.'" pattern="[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-z]{2,3}$" required/>                
             </p>
 
             <p>
@@ -51,16 +53,8 @@
                 <span class="err" id="err-password"></span>
             </p>
 
-            <p id="email-p">
-                <label for="email">Email:</label>
-                <br>
-                <input type="text" id="email" name="email" title="Должен содержать символы: '@' и '.'" pattern="[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-z]{2,3}$" required/>
-                <br>
-                <input type="button" data-add-email-num=1 onclick="addEmail()" id="add-email-button" class="add-email-button" value="Добавить email">
-            </p>
-
             <p class="register-submit">
-                <button type="submit" class="register-button">Зарегистрироваться</button>
+                <button type="submit" class="register-button">Войти</button>
             </p>
         </form>
     </div>
