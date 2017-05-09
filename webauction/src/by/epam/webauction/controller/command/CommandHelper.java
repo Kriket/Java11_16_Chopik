@@ -14,8 +14,10 @@ public final class CommandHelper {
     private CommandHelper() {
         commands.put(CommandName.SIGN_IN, new SignIn());
         commands.put(CommandName.SIGN_UP, new SignUp());
+        commands.put(CommandName.SIGN_OUT, new SignOut());
         commands.put(CommandName.INIT_DATA, new InitData());
         commands.put(CommandName.DESTROY_DATA, new DestroyData());
+        commands.put(CommandName.CHANGE_LOCALIZATION, new ChangeLocalization());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
     }
 

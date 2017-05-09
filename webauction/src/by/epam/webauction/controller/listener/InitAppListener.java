@@ -4,13 +4,14 @@ import by.epam.webauction.controller.command.CommandException;
 import by.epam.webauction.controller.command.CommandHelper;
 import by.epam.webauction.controller.command.CommandName;
 import by.epam.webauction.controller.command.ICommand;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class InitAppListener implements ServletContextListener{
 
-    // private static final Loger
+    private static final Logger logger = Logger.getLogger(InitAppListener.class);
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -21,7 +22,7 @@ public class InitAppListener implements ServletContextListener{
         try {
             command.execute(null, null);
         } catch (CommandException e) {
-            // log
+            logger.error("Context initialization error", e);
         }
 
     }
@@ -35,7 +36,7 @@ public class InitAppListener implements ServletContextListener{
         try {
             command.execute(null, null);
         } catch (CommandException e) {
-            // log
+            logger.error("Context destroying error", e);
         }
 
     }

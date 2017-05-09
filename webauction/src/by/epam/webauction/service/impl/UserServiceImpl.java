@@ -6,9 +6,12 @@ import by.epam.webauction.dao.UserDAO;
 import by.epam.webauction.dao.factory.DAOFactory;
 import by.epam.webauction.service.ServiceException;
 import by.epam.webauction.service.UserService;
+import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     @Override
     public User singUp(String nickname, String password, String email) throws ServiceException {
@@ -36,7 +39,8 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.registration(user);
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            logger.error("Error while registering the user", e);
+            throw new ServiceException("Error while registering the user", e);
         }
     }
 
@@ -58,7 +62,8 @@ public class UserServiceImpl implements UserService {
                 return user;
             }
         } catch (DAOException e) {
-            throw new ServiceException(e);
+            logger.error("Error while sign in", e);
+            throw new ServiceException("Error while sign in", e);
         }
 
         return null;

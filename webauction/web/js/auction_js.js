@@ -41,7 +41,7 @@ function addEmail() {
 		  deleteAddedEmailButton.type = "button";
 		  deleteAddedEmailButton.className = "delete-email-button";
 		  deleteAddedEmailButton.id = "delete-email-button-" + addEmailNum;
-		  deleteAddedEmailButton.value = "Удалить email";
+		  deleteAddedEmailButton.value = "Delete email";
 
 		  /*deleteAddedEmailButton.style.margin = "16px";*/
 
@@ -64,4 +64,18 @@ function addEmail() {
 	var nextAddEmailNum = 1 + Number(addEmailNum);
 	addEmailButton.setAttribute("data-add-email-num", nextAddEmailNum);
 
+}
+
+function setLanguage(page, local){		
+	$.get(
+		    "controller",
+		    {
+		    	 command : "CHANGE_LOCALIZATION",			    
+			     destinationPage : page,
+			     local : local			    
+		    },
+		    function(data) {
+		       window.location.replace(page);
+		    }
+		);
 }

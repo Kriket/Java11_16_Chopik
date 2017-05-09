@@ -3,6 +3,7 @@ package by.epam.webauction.controller;
 import by.epam.webauction.controller.command.CommandException;
 import by.epam.webauction.controller.command.CommandHelper;
 import by.epam.webauction.controller.command.ICommand;
+import org.apache.log4j.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import java.io.IOException;
 
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
+    private static final Logger logger = Logger.getLogger(Controller.class);
 
     public Controller() {
         super();
@@ -42,6 +45,7 @@ public class Controller extends HttpServlet {
         if (dispatcher != null) {
             dispatcher.forward(request, response);
         } else {
+            logger.warn("It is impossible to go to another page");
             errorMessageDirectlyFromResponse(response);
         }
     }

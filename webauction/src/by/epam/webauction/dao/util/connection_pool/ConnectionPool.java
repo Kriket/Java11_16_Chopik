@@ -1,17 +1,17 @@
 package by.epam.webauction.dao.util.connection_pool;
 
-import java.io.Closeable;
-import java.io.IOException;
+import org.apache.log4j.Logger;
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
-public final class ConnectionPool implements Closeable {
+public final class ConnectionPool {
+
+    private static final Logger logger = Logger.getLogger(ConnectionPool.class);
 
     private static final ConnectionPool instance = new ConnectionPool();
     private BlockingQueue<Connection> connectionQueue;
@@ -33,6 +33,7 @@ public final class ConnectionPool implements Closeable {
         try {
             this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOL_SIZE));
         } catch (NumberFormatException e) {
+            logger.warn("Invalid number format", e);
             poolSize = 5;
         }
     }
@@ -49,9 +50,12 @@ public final class ConnectionPool implements Closeable {
                 PooledConnection pooledConnection = new PooledConnection(connection);
                 connectionQueue.add(pooledConnection);
             }
+            logger.info("ConnectionPool init was successful");
         } catch (ClassNotFoundException e) {
+            logger.error("Can't find database driver class", e);
             throw new ConnectionPoolException("Can't find database driver class", e);
         } catch (SQLException e) {
+            logger.error("SQLException in ConnectionPool", e);
             throw new ConnectionPoolException("SQLException in ConnectionPool", e);
         }
     }
@@ -62,6 +66,7 @@ public final class ConnectionPool implements Closeable {
 
     public void dispose() {
         clearConnectionQueue();
+        logger.info("The connection pool was successfully disposed");
     }
 
     private void clearConnectionQueue() {
@@ -69,7 +74,7 @@ public final class ConnectionPool implements Closeable {
             closeConnectionsQueue(givenAwayConQueue);
             closeConnectionsQueue(connectionQueue);
         } catch (SQLException e) {
-            //loger/log(Level.ERROR, "Error closing the connection.", e);
+            logger.error("Error closing the connection.", e);
         }
     }
 
@@ -79,6 +84,7 @@ public final class ConnectionPool implements Closeable {
             connection = connectionQueue.take();
             givenAwayConQueue.add(connection);
         } catch (InterruptedException e) {
+            logger.error("Error connection to the data source.", e);
             throw new ConnectionPoolException("Error connection to the data source.", e);
         }
         return connection;
@@ -89,7 +95,7 @@ public final class ConnectionPool implements Closeable {
             try {
                 con.close();
             } catch (SQLException e) {
-                // logger.log(Level.ERROR, "Connection isn't return to the pool.");
+                logger.error("Connection isn't return to the pool", e);
             }
         }
 
@@ -97,7 +103,7 @@ public final class ConnectionPool implements Closeable {
             try {
                 rs.close();
             } catch (SQLException e) {
-                // logger.log(Level.ERROR, "ResultSet isn't closed.");
+                logger.error("ResultSet isn't closed.", e);
             }
         }
 
@@ -105,7 +111,7 @@ public final class ConnectionPool implements Closeable {
             try {
                 st.close();
             } catch (SQLException e) {
-                // logger.log(Level.ERROR, "Statement isn't closed.");
+                logger.error("Statement isn't closed.", e);
             }
         }
     }
@@ -115,7 +121,7 @@ public final class ConnectionPool implements Closeable {
             try {
                 con.close();
             } catch (SQLException e) {
-                // logger.log(Level.ERROR, "Connection isn't return to the pool.");
+                logger.error("Connection isn't return to the pool.", e);
             }
         }
 
@@ -123,7 +129,7 @@ public final class ConnectionPool implements Closeable {
             try {
                 st.close();
             } catch (SQLException e) {
-                // logger.log(Level.ERROR, "Statement isn't closed.");
+                logger.error("Statement isn't closed.", e);
             }
         }
     }
@@ -135,23 +141,6 @@ public final class ConnectionPool implements Closeable {
                 connection.commit();
             }
             ((PooledConnection)connection).reallyClose();
-        }
-    }
-
-    @Override
-    public void close() throws IOException {
-        List<Connection> connectionList = new ArrayList<>();
-        connectionList.addAll(connectionQueue);
-        connectionList.addAll(givenAwayConQueue);
-        
-        for (Connection connection : connectionList) {
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    // log
-                }
-            }
         }
     }
 
