@@ -21,6 +21,7 @@ function validateForm() {
   return true;
 }
 
+
 function addEmail() {
 	
 	var emailP = document.getElementById("email-p");
@@ -78,4 +79,104 @@ function setLanguage(page, local){
 		       window.location.replace(page);
 		    }
 		);
+}
+
+function getAuctions() {
+
+    var xmlhttp = getXmlHttp()
+    xmlhttp.open('GET', '/controller', true);
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4) {
+            if(xmlhttp.status == 200) {
+                alert(xmlhttp.par);
+            }
+        }
+    };
+    xmlhttp.send(null);
+
+	$.get(
+		"controller",
+		{
+			command : "AUCTIONS_UPDATE"
+		},
+		function (data) {
+			var auctionList = document.getElementById("auction-list");
+
+        }
+	);
+}
+
+function addThing() {
+	var thing = $("div.thing:first").clone().appendTo("#thing-container");
+    var thingContainer = document.getElementById("thing-container");
+
+    var deleteButtonExample = document.getElementById("delete-example");
+
+    $("div.thing:last textarea").val("");
+
+	var deleteButton = document.createElement("input");
+    deleteButton.type = "button";
+    deleteButton.className = "delete-email-button";
+    deleteButton.value = deleteButtonExample.value;
+
+    deleteButton.onclick = function() {
+        thing.remove();
+        deleteButton.remove();
+    };
+
+    thingContainer.appendChild(deleteButton);
+}
+
+function refreshAuctions() {
+    $.get(
+        "getaucs",
+        {
+            command : "AUCTIONS_UPDATE"
+        },
+        function (data) {
+            var arr = data.split(",");
+            $('#auctions').empty();
+            arr.forEach(function (item, i) {
+
+            	if(i!=arr.length-1) {
+					var subItem = item.split(" ");
+					$('#auctions').append('<option value="'+subItem[0]+'">'+subItem[1]+'</option>');
+                }
+            })
+        }
+    );
+}
+
+function refreshAuctionsForDeleteLos() {
+    $.get(
+        "getaucs",
+        {
+            command : "AUCTIONS_UPDATE_FOR__DELETE_LOTS"
+        },
+        function (data) {
+            var arr = data.split(",");
+            $('#auctions').empty();
+            arr.forEach(function (item, i) {
+
+                if(i!=arr.length-1) {
+                    var subItem = item.split(" ");
+                    $('#auctions').append('<option value="'+subItem[0]+'">'+subItem[1]+'</option>');
+                }
+            })
+        }
+    );
+}
+
+function refreshInfo(page, auctionId){
+    $.get(
+        "controller",
+        {
+            command : "REFRESH_AUCTION",
+            destinationPage : page,
+            auctions : auctionId
+        },
+        function(data) {
+            window.location.replace(page);
+        }
+    );
 }

@@ -1,7 +1,6 @@
 package by.epam.webauction.controller.command.impl;
 
-import by.epam.webauction.bean.User;
-import by.epam.webauction.controller.JspPageName;
+import by.epam.webauction.bean.Auction;
 import by.epam.webauction.controller.RequestParameterName;
 import by.epam.webauction.controller.SessionAttributeName;
 import by.epam.webauction.controller.command.CommandException;
@@ -14,34 +13,30 @@ import org.apache.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SignIn implements ICommand {
+public class RefreshAuction implements ICommand {
 
-    private static final Logger logger = Logger.getLogger(SignIn.class);
+    private static final Logger logger = Logger.getLogger(RefreshAuction.class);
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
-        String email = request.getParameter(RequestParameterName.EMAIL);
-        String password = request.getParameter(RequestParameterName.PASSWORD);
+        String auctionID = request.getParameter(RequestParameterName.AUCTIONS);
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
 
-        User user = null;
+        Auction auction = null;
 
         try {
-            user = userService.singIn(email, password);
+            auction = userService.refreshAuction(auctionID);
+            logger.info("Refresh auction was successful");
         } catch (ServiceException e) {
-            logger.warn("Sign in was unsuccessful");
-            return JspPageName.ERROR_PAGE;
+            logger.error("Error while refreshing auction");
         }
 
-        if (user != null) {
-            request.getSession(true).setAttribute(SessionAttributeName.USER, user);
-            logger.info("Sign in was successful");
-            return JspPageName.INDEX_PAGE;
-        }
+        request.getSession(true).setAttribute(SessionAttributeName.AUCTION, auction);
 
-        return null;
+        return request.getParameter(RequestParameterName.DESTINATION_PAGE);
+
     }
 }

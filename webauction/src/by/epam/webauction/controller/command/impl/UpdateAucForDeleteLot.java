@@ -1,8 +1,6 @@
 package by.epam.webauction.controller.command.impl;
 
 import by.epam.webauction.bean.User;
-import by.epam.webauction.controller.JspPageName;
-import by.epam.webauction.controller.RequestParameterName;
 import by.epam.webauction.controller.SessionAttributeName;
 import by.epam.webauction.controller.command.CommandException;
 import by.epam.webauction.controller.command.ICommand;
@@ -13,35 +11,33 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
-public class SignIn implements ICommand {
-
-    private static final Logger logger = Logger.getLogger(SignIn.class);
-
+public class UpdateAucForDeleteLot implements ICommand {
+    private static final Logger logger = Logger.getLogger(UpdateAucForDeleteLot.class);
+    public static final String DELIMITER = ",";
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
 
-        String email = request.getParameter(RequestParameterName.EMAIL);
-        String password = request.getParameter(RequestParameterName.PASSWORD);
+        String sellerId = ((User)request.getSession().getAttribute(SessionAttributeName.USER)).getId().toString();
 
         ServiceFactory serviceFactory = ServiceFactory.getInstance();
         UserService userService = serviceFactory.getUserService();
 
-        User user = null;
-
+        ArrayList<String> auctionList = new ArrayList<>();
         try {
-            user = userService.singIn(email, password);
+            auctionList = userService.UpdateAuc(sellerId);
+            logger.info("UpdateAucForDeleteLot was successful");
         } catch (ServiceException e) {
-            logger.warn("Sign in was unsuccessful");
-            return JspPageName.ERROR_PAGE;
+            logger.error("Error while UpdateAucForDeleteLot");
         }
 
-        if (user != null) {
-            request.getSession(true).setAttribute(SessionAttributeName.USER, user);
-            logger.info("Sign in was successful");
-            return JspPageName.INDEX_PAGE;
+        StringBuilder resultString = new StringBuilder();
+
+        for (String item: auctionList) {
+            resultString.append(item).append(DELIMITER);
         }
 
-        return null;
+        return resultString.toString();
     }
 }

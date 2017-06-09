@@ -4,7 +4,8 @@ public class User {
     private String password;
     private String nickname;
     private String email;
-    private int id;
+    private Integer id;
+    private Boolean admin;
 
     public String getPassword() {
         return password;
@@ -30,11 +31,19 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Boolean isAdmin() {
+        return admin;
+    }
+
+    public void setIsAdmin(Boolean admin) {
+        this.admin = admin;
     }
 }

@@ -13,10 +13,8 @@
 <body>
   <header>
     <div>
-      <h1>${title}</h1>
+      <h1><a href="/">${title}</a></h1>
       <nav>
-        <a href="">Add lot</a>
-
 
           <c:if test="${user == null}">
               <a href="/registration">${signup}</a>
@@ -24,6 +22,13 @@
           </c:if>
 
           <c:if test="${user != null}">
+              <a href="/addlot">${addlot}</a>
+              <a href="/deletelot">${deletelot}</a>
+              <a href="/showauc">${showauc}</a>
+              <c:if test="${user.isAdmin() == true}">
+                <a href="/addauc">${addauc}</a>
+                <a href="/deleteauc">${deleteauc}</a>
+              </c:if>
               <form method="post" action = "controller" id="sign_out">
                   <input type="hidden" name="command" value="sign_out">
                   <a href="#" onclick="document.getElementById('sign_out').submit(); return false;">${signout}</a>

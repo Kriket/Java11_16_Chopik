@@ -11,6 +11,7 @@ public final class DAOFactory {
     private final UserDAO sqlUser = new SQLUserDAO();
     private final InitDAO initDAO = new InitDAOImpl();
 
+
     private DAOFactory() {
     }
 

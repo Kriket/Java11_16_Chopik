@@ -28,9 +28,8 @@
 <body>
     <header>
         <div>
-            <h1>Super AUCTION</h1>
+            <h1><a href="/">${title}</a></h1>
             <nav>
-                <a href="">Add lot</a>
                 <a href="/registration">${signup}</a>
                 <a href="/authorization">${signin}</a>
 

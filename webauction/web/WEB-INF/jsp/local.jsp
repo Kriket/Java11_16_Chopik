@@ -30,3 +30,25 @@
 <fmt:message bundle="${loc}" key="local.registration.email" var="email" />
 <fmt:message bundle="${loc}" key="local.registration.addemail" var="addemail" />
 <fmt:message bundle="${loc}" key="local.registration.deleteemail" var="deleteemail" />
+
+<%--  add lot  --%>
+<fmt:message bundle="${loc}" key="local.lot.startprice" var="startprice" />
+<fmt:message bundle="${loc}" key="local.lot.addlot" var="addlot" />
+<fmt:message bundle="${loc}" key="local.lot.deletelot" var="deletelot" />
+<fmt:message bundle="${loc}" key="local.lot.lotname" var="lotname" />
+<fmt:message bundle="${loc}" key="local.lot.item.name" var="itemname" />
+<fmt:message bundle="${loc}" key="local.lot.item.description" var="itemdescription" />
+<fmt:message bundle="${loc}" key="local.lot.item.additem" var="additem" />
+<fmt:message bundle="${loc}" key="local.lot.item.deleteitem" var="deleteitem" />
+
+<%--  add auction  --%>
+<fmt:message bundle="${loc}" key="local.auction.aucname" var="aucname" />
+<fmt:message bundle="${loc}" key="local.auction.aucstep" var="aucstep" />
+<fmt:message bundle="${loc}" key="local.auction.addauc" var="addauc" />
+<fmt:message bundle="${loc}" key="local.auction.deleteauc" var="deleteauc" />
+<fmt:message bundle="${loc}" key="local.auction.currency" var="currency" />
+<fmt:message bundle="${loc}" key="local.auction.startday" var="startday" />
+
+
+
+<fmt:message bundle="${loc}" key="local.auction.showauc" var="showauc" />

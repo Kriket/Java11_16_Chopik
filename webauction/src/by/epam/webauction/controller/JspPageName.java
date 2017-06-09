@@ -8,4 +8,5 @@ public final class JspPageName {
     public static final String CONGRATULATION_WITH_REGISTRATION = "/congratulation";
     public static final String ERROR_PAGE = "/error";
     public static final String AFTER_SIGN_UP_PAGE = "/afterReg";
+    public static final String SHOW_AUCTION = "/showauc";
 }

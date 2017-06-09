@@ -7,4 +7,5 @@ public final class SessionAttributeName {
 
     public static final String USER = "user";
     public static final String LOCAL = "local";
+    public static final String AUCTION = "auction";
 }

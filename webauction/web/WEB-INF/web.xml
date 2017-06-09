@@ -82,4 +82,64 @@
         <url-pattern>/congratulation</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddLot</servlet-name>
+        <jsp-file>/WEB-INF/jsp/addLot.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddLot</servlet-name>
+        <url-pattern>/addlot</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddAuc</servlet-name>
+        <jsp-file>/WEB-INF/jsp/addAuc.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddAuc</servlet-name>
+        <url-pattern>/addauc</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteAuc</servlet-name>
+        <jsp-file>/WEB-INF/jsp/deleteAuc.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteAuc</servlet-name>
+        <url-pattern>/deleteauc</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteLot</servlet-name>
+        <jsp-file>/WEB-INF/jsp/deleteLot.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteLot</servlet-name>
+        <url-pattern>/deletelot</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetAucs</servlet-name>
+        <servlet-class>by.epam.webauction.controller.Getaucs</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GetAucs</servlet-name>
+        <url-pattern>/getaucs</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ShowAuc</servlet-name>
+        <jsp-file>/WEB-INF/jsp/showAuc.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ShowAuc</servlet-name>
+        <url-pattern>/showauc</url-pattern>
+    </servlet-mapping>
+
 </web-app>
